@@ -94,9 +94,7 @@ class RecognitionWidget(Widget):
     image_path = StringProperty("")
     name_distance = ListProperty()
     top_name_dist = StringProperty("")
-    known_faces_folder = StringProperty(
-        "/home/jirka/projects/whos_that_pokemon/known_people/"
-    )
+    known_faces_folder = StringProperty("")
 
     def close_popup(self):
         self._popup.dismiss()
