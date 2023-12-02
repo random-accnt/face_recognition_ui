@@ -1,5 +1,5 @@
 # Face recognition UI
-Simple UI for face_recognition packege. Just some practice. More features maybe later.
+Simple UI for [face_recognition](https://github.com/ageitgey/face_recognition) packege. Just some practice. More features maybe later.
 
 ## Instalation and running
 Simply clone repo and run *main.py*
