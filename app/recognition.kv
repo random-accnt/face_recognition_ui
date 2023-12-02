@@ -1,0 +1,113 @@
+#:kivy 1.0.9
+#:import evaluate app.app
+
+<RecognitionWidget>:
+	id: main_widget
+	BoxLayout:
+		size: self.parent.size
+		pos: self.parent.pos
+		orientation: 'vertical'
+		padding: 20, 5, 20, 5
+		Label:
+			font_size: 30
+			center_x: root.width / 2
+			top: root.top - 20
+			size_hint_y: None
+			height: 40
+			text: "Who's that pokemon?"
+		BoxLayout:
+			orientation: 'horizontal'
+			SelectedImage:
+				canvas.before:
+					Color:
+						rgba: 0, 0, 0, 1
+					Rectangle:
+						pos: self.pos
+						size: self.size
+				id: selected_image_box
+				filepath: root.image_path
+				on_touch_down: root.load_show_if_empty()
+			StackLayout:
+				padding: 10
+				spacing: 0, 5
+				InfoRow:
+					key: "Name:"
+					value: root.top_name_dist
+				InfoRow:
+					key: "2)" if len(root.name_distance) > 1 else ""
+					value: f"{root.name_distance[1][0]} ({root.name_distance[1][1]})" if len(root.name_distance) > 1 else ""
+					font_size: 15
+					padding: 20, 0, 0, 0
+				InfoRow:
+					key: "3)" if len(root.name_distance) > 2 else ""
+					value: root.name_distance[2][0] if len(root.name_distance) > 2 else ""
+					font_size: 15
+					padding: 20, 0, 0, 0
+				InfoRow:
+					key: "4)" if len(root.name_distance) > 3 else ""
+					value: root.name_distance[3][0] if len(root.name_distance) > 3 else ""
+					font_size: 15
+					padding: 20, 0, 0, 0
+				InfoRow:
+					key: "Selected image:"
+					value: root.image_path
+				InfoRow:
+					key: "Known faces:"
+					value: root.known_faces_folder
+		BoxLayout:
+			center_x: self.parent.center_x
+			orientation: 'horizontal'
+			spacing: 5
+			padding: 5
+			size_hint_y: None
+			height: 65
+			BoxLayout:
+				id: image_btn_box
+				orientation: 'vertical'
+				Button:
+					text: "Load image"
+					size_hint: None, 0.5
+					width: btn2.width
+					on_press: root.load_show()
+				Button:
+					id: btn2
+					text: "Select known faces folder"
+					size_hint: None, 0.5
+					width: self.texture_size[0] + 10
+					on_press: root.folder_select_show()
+			Button:
+				text: "Start"
+				size_hint_x: None
+				width: self.texture_size[0] + 50
+				font_size: btn2.font_size * 1.2
+				bold: True
+				on_press: root.evaluate()
+		
+<InfoRow>:
+	orientation: 'horizontal'
+	pos: self.parent.pos
+	size_hint: None, None
+	width: self.parent.size[0]
+	font_size: 20
+	spacing: 10
+	Label:
+		id: label_key
+		font_size: root.font_size
+		bold: True
+		size_hint: 0.3, None
+		height: self.texture_size[1]
+		pos_hint: {'top': 1}
+		text_size: self.size
+		halign: 'left'
+		text: root.key
+	Label:
+		id: label_value
+		font_size: root.font_size
+		size_hint: 0.7, None
+		height: self.texture_size[1]
+		text_size: self.width , None
+		pos_hint: {'top': 1}
+		text: root.value
+	
+<SelectedImage>:
+
